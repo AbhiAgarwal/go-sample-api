@@ -29,20 +29,6 @@ func ListHandler(res http.ResponseWriter, req *http.Request, ps httprouter.Param
 	action(res, req, ps)
 }
 
-func RestDispatch(res http.ResponseWriter, req *http.Request, ps httprouter.Params, actionName string) {
-	resource, exists := resources[ps.ByName("resource")]
-	if exists == false {
-		//todo: return not found
-		return
-	}
-	action, exists := resource[actionName]
-	if exists == false {
-		//todo: return not found
-		return
-	}
-	action(res, req, ps)
-}
-
 func RegisterAction(ResourceName string, actions ...Actions) {
 	for _, action := range actions {
 		resourceName, actionName := ResourceName, action.HandlerName
